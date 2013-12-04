@@ -1,0 +1,104 @@
+Is this too hokey?
+
+It is ALOT of code. But, at first blush, it does look like it might work.
+But, is this just alot of machinations for something that would really not
+be all that useful? And, would it look ameturish to try to re-invent the
+Objective-C wheel? Would it be poo-poo'd by the population at large?
+
+My feeling is to do a real pass at this and see how useful it would really
+be. I like the idea of delegates in general: for things like button presses
+it is kind of a no-brainer. It relieves the rest of the system from the
+need to route event messages around -- or even to have an event queue
+which is separate from the X11 message pump. If we could get away with
+absolutely ZERO threads, that would make the whole thing way more
+portable.
+
+struct TableViewProtocol
+{
+    int (*get_number_of_rows)(void *delegate);
+    VarData *(*get_data_for_row)(void *delegate, int row);
+    void (*set_data_for_row)(void *delegate, int row, VarData *data);
+};
+
+struct TableViewProtocol *TableViewProtocolAllocInit(
+        int (*get_number_of_rows)(void *delegate),
+        VarData *(*get_data_for_row)(void *delegate, int row),
+        void (*set_data_for_row)(void *delegate, int row, VarData *data))
+{
+    /* stuff to allocate the table_view_protocol */
+    self->get_number_of_rows = get_number_of_rows;
+    self->get_data_for_row = get_data_for_row;
+    self->set_data_for_row = set_data_for_row;
+
+    return self;
+}
+
+struct TableView
+{
+    DECLARE_UI_BASE_SOMETHING
+    void (*set_delegate)(void *delegate, struct TablewViewProtocol *protocol);
+    void (*remove_delegate)(void *delegate);
+    struct TableViewProtocol *_protocol;
+    void *_delegate;
+};
+
+void TableView_num_rows(TableView *self)
+{
+    if (self->_delegate && self->_protocol
+            && self->_protocol->get_number_of_rows)
+    {
+        self->_num_rows = this->_protocol->get_number_of_rows(
+                self->_delegate);
+    }
+    else
+    {
+        self->_num_rows = 0;
+    }
+}
+
+struct AddressView
+{
+    DECLARE_UI_BASE_SOMETHING
+    struct TableView *_table_view;
+    struct TablewViewProtocol *_table_view_protocol;
+};
+
+stuct AddressView *AddressViewAllocInit(void)
+{
+    /* stuff to actually alloc the address view */
+
+    self->_table_view = TableViewAllocInit();
+    self->_table_view_protocol = TableViewProtocolAllocInit(
+            AddressView_get_number_of_rows,
+            AddressView_get_data_for_row,
+            AddressView_set_data_for_row);
+    set->_table_view->set_delegate(self, self->_table_view_protocol);
+}
+
+void AddressViewDestroy(void *vself)
+{
+    AddressView *self = (AddressView *) vself;
+
+    if (self->_table_view)
+    {
+        self->_table_view->remove_delegate(self);
+        self->_table_view->destroy(self->_table_view);
+    }
+
+    if (self->_table_view_protocol)
+    {
+        self->_table_view_protocol->destroy(self->_table_view_protocol);
+    }
+
+    ui_base_destroy(self);
+}
+
+int AddressView_get_number_of_rows(void *vself)
+{
+    AddressView *self = (AddressView *) vself;
+
+    /* then something like */
+    return self->_data_source->num_rows();
+}
+
+

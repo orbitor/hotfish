@@ -5,7 +5,6 @@ Embedded application toolkit.
 
 Ever wish for portable:
 
-* Message queues
 * Pub/Sub Management
 * Hash tables
 * Arrays
@@ -15,7 +14,7 @@ Ever wish for portable:
 * Geometry
 * Basic User Interface
 * Multiple Language Support
-* OpenGL Interface
+* Cairo Support
 
 Written in standard C without the overhead and complexity of C++ and
 the STL? That is scalable from ThreadX to Linux? That won't get in your
