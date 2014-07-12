@@ -1,0 +1,57 @@
+
+1. We can't just have everything be a silly void pointer. That will make
+    people (and I'm part of people) a little quesy. So, first things first,
+    let's make ourselves a type for "any object".
+
+    Candidates may be:
+
+    typedef void* AOBJ          /* for Any OBJect */
+    typedef void* HFOBJ         /* for HotFish OBJect */
+
+#define obj     hf_object*
+
+typedef hf_object* obj;
+
+So, that makes this not so big of a deal:
+
+hf_array_add((obj) something);
+
+HfArrayAdd((obj) something);
+
+HfArray *stuff = HfArrayAllocInit();
+stuff->add((obj) something);
+
+HfArray *stuff = HfArrayAllocInitWithObjects(...);
+
+HfMutableArray *stuff = HfMutableArrayAllocInit();
+
+HfData *data = stuff->objectAtIndex(14);
+
+----------------------
+Ok. I think I see where this is going now. Analogous "class" functions
+are like so:
+
+HfMutableArrayAllocInit();
+
+while "instance" methods are dereferenced through the pointer:
+
+stuff->objectAtIndex(1);
+
+-----------------------
+
+public:
+typedef struct _HfArray HfArray;
+
+HfArray *HfArrayAllocInit(void);
+void HfArrayInit(HfArray *self);
+void HfArrayDestroy(HfArray *self);
+
+struct _HfArray
+{
+    HF_SOME_BASE_OBJECT_MEMBERS
+    HfObject *(*objectAtIndex)(HfArray *self, unsigned int index);
+};
+
+static:
+static HfArray *HfArray_Alloc(void);
+static void     HfArray_setDefaultFunctions(HfArray *self);

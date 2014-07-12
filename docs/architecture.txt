@@ -1,0 +1,37 @@
+Don't be silly, painful is better.
+
+"Brevity is the by-product of vigor"
+            -- e.b. white
+
+class HfViewController : public HfObject
+{
+    public:
+        HfViewController(HfObject *View);
+        virtual ~HfViewController();
+
+        /* yadda yadda yadda */
+};
+
+C++ has no style. It once had promise, but has become gooey, gangly, and
+kind of gross. It has been coerced into work for which it was originally
+unintended. Like using a pick-axe to mow the lawn. It is brutish and
+ugly, and often requires of the user far more work than originally
+anticipated.
+
+So much for a vision statement.
+
+Implementing hotfish in C is not going to be easy and will not make for
+beautiful code, either. But, everything should be clear to the user. And,
+for my money, clarity is beauty.
+
+Not alot of tricks -- hey, look how smart I am, cause I'm not -- just a
+simple design pattern.
+
+Structures are objects
+Protocols are structures
+Functions are protocols
+Codes are functions
+Statements are code
+Syntax is tea leaves
+
+Pancakes are love.
