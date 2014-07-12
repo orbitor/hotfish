@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------*/
-/* HotFish - An application framework for embedded systems.
+/* HotFish - An application toolkit for embedded systems.
  *
  * Copyright (c) 2011, 2012, 2013, 2014, Lucky Green Frog, LLC
  *
@@ -21,7 +21,7 @@
 
 #include <stdint.h>
 
-typedef uint16_t hf_id_t;
+typedef uint32_t hf_id_t;
 typedef uint16_t hf_type_t;
 
 typedef int hf_ret_t;

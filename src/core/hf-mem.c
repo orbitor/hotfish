@@ -1,3 +1,12 @@
+/*-------------------------------------------------------------------------*/
+/* HotFish - An application toolkit for embedded systems.
+ *
+ * Copyright (c) 2011, 2012, 2013, 2014, Lucky Green Frog, LLC
+ *
+ * Maintainer:
+ *
+ */
+/*-------------------------------------------------------------------------*/
 
 #include "HotFish.h"
 

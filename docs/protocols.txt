@@ -102,3 +102,50 @@ int AddressView_get_number_of_rows(void *vself)
 }
 
 
+Should the delegate be embedded in the protocol?
+It makes sense if the delegate is inherint with the protocol. In that manner,
+any object could have multiple delegates and protocols. But, is that what
+we are really trying to achieve? Is it really a one-to-one relationship?
+
+This make take some fiddling.
+
+struct TimerProtocol
+{
+    obj *_delegate;
+    void (*timeout)(obj *delegate, HfTimer *timer);
+};
+
+struct HfTimer
+{
+    HfTimer *(*Alloc)(void);
+    HfTimer *(AllocInit)(struct time_t timeout, bool isRecurring);
+};
+
+No, I think a protocol is a protocol. It defines the interface, not the
+delegate. The object for whom the protocol is implemented should have
+the pointer to the delegate.
+
+stuct TimerProtocol
+{
+    void (*timeout)(obj *delegate, HFTimer *time);
+};
+
+struct HFTimer
+{
+    HFTimer *(*Alloc)(void);
+    /* ... */
+
+    void (*set_delegate_with_protocol)(obj *delegate,
+            void(*timer_protocol_timeout)(obj *delegate, hf_timer *timer));
+
+    obj *_delgate;
+    struct TimerProtocol *_timer_protocol;
+};
+
+void setDelegateWithProtocol(...);
+void set_delegate_with_protocol(...);
+
+void HFTimer_setDelegateWithProtocol(...);
+
+void HFTimer::setDelegateWithProtocol(...);
+

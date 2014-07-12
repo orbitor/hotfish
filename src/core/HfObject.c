@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------*/
-/* HotFish - An application framework for embedded systems.
+/* HotFish - An application toolkit for embedded systems.
  *
  * Copyright (c) 2011, 2012, 2013, 2014, Lucky Green Frog, LLC
  *
@@ -10,6 +10,10 @@
 
 #include "HotFish.h"
 #include "HfObject.h"
+
+#define HF_ASSERT_TO_SELF() \
+    HF_ASSERT(vself); \
+    HfObject* self = (HfObject*) vself;
 
 /* alloc and init functions */
 HfObject* HfObjectAlloc(void)
@@ -30,8 +34,7 @@ HfObject* HfObjectAllocInit(hf_type_t isa, hf_id_t id)
 
 void HfObjectInit(hf_voptr vself, hf_type_t isa, hf_id_t id)
 {
-    HF_ASSERT(vself);
-    HfObject* self = (HfObject*) vself;
+    HF_ASSERT_TO_SELF();
     self->_isa = isa;
     self->_id = id;
     HfObjectObjFuncsInit(self);
@@ -39,37 +42,32 @@ void HfObjectInit(hf_voptr vself, hf_type_t isa, hf_id_t id)
 
 void HfObjectObjFuncsInit(hf_voptr vself)
 {
-    HF_ASSERT(vself);
-    HfObject* self = (HfObject*) vself;
+    HF_ASSERT_TO_SELF();
     self->Destroy = HfObjectDestroy;
 }
 
 /* type functions */
 hf_type_t HfObjectIsa(hf_voptr vself)
 {
-    HF_ASSERT(vself);
-    HfObject* self = (HfObject*) vself;
+    HF_ASSERT_TO_SELF();
     return self->_isa;
 }
 
 void HfObjectIsaSet(hf_voptr vself, hf_type_t isa)
 {
-    HF_ASSERT(vself);
-    HfObject* self = (HfObject*) vself;
+    HF_ASSERT_TO_SELF();
     self->_isa = isa;
 }
 
 hf_id_t HfObjectId(hf_voptr vself)
 {
-    HF_ASSERT(vself);
-    HfObject* self = (HfObject*) vself;
+    HF_ASSERT_TO_SELF();
     return self->_id;
 }
 
 void HrObjectIdSet(hf_voptr vself, hf_id_t id)
 {
-    HF_ASSERT(vself);
-    HfObject* self = (HfObject*) vself;
+    HF_ASSERT_TO_SELF();
     self->_id = id;
 }
 
