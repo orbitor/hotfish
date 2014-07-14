@@ -1,6 +1,6 @@
 
 #include "HotFish.h"
-#include "HfObject.h"
+#include "hotfish-object.h"
 
 #include <stdio.h>
 

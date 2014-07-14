@@ -33,4 +33,4 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 add_subdirectory(src)
-add_subdirectory(tests)
+add_subdirectory(tests EXCLUDE_FROM_ALL)
