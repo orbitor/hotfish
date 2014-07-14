@@ -24,7 +24,7 @@ void        HfObjectObjFuncsInit(hf_voptr vself);
 hf_type_t   HfObjectIsa(hf_voptr vself);
 void        HfObjectIsaSet(hf_voptr vself, hf_type_t isa);
 hf_id_t     HfObjectId(hf_voptr vself);
-void        HrObjectIdSet(hf_voptr vself, hf_id_t id);
+void        HfObjectIdSet(hf_voptr vself, hf_id_t id);
 
 /* member declaration */
 #define HF_OBJECT_MEMBERS_DECLARE \

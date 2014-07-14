@@ -13,8 +13,8 @@ set(HF_CORE_LIB_VERSION 0.0.1)
 
 set(
   HF_LIB_CORE_SOURCES
-    ${CMAKE_CURRENT_LIST_DIR}/hf-mem.c
-    ${CMAKE_CURRENT_LIST_DIR}/HfObject.c
+    ${CMAKE_CURRENT_LIST_DIR}/hf-mem-ansic.c
+    ${CMAKE_CURRENT_LIST_DIR}/hotfish-object.c
 )
 
 add_library(

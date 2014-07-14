@@ -9,7 +9,7 @@
 /*-------------------------------------------------------------------------*/
 
 #include "HotFish.h"
-#include "HfObject.h"
+#include "hotfish-object.h"
 
 #define HF_ASSERT_TO_SELF() \
     HF_ASSERT(vself); \
@@ -65,7 +65,7 @@ hf_id_t HfObjectId(hf_voptr vself)
     return self->_id;
 }
 
-void HrObjectIdSet(hf_voptr vself, hf_id_t id)
+void HfObjectIdSet(hf_voptr vself, hf_id_t id)
 {
     HF_ASSERT_TO_SELF();
     self->_id = id;
