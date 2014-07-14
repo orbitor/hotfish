@@ -35,3 +35,74 @@ Statements are code
 Syntax is tea leaves
 
 Pancakes are love.
+
+
+* A note about comparator functions
+-------------------------------------------------
+Any object should have a comparator function. Specifically, objects like
+numbers should have a comparator function. The generic data object should
+have comparator functions.
+
+Comparator functions will be used to sort and filter collections of
+objects -- so, the default versions may not always be appropriate for
+every use case.
+
+For a number, there should probably be multiple comparator functions -- one
+for each type of number (integer, unsigned, float, double) that should be
+substitutable by the user. So, if we have one comparator function that
+is the front end for deciding on what type of comparator we are going to
+call, the user should be able to substitute the ultimate function which is
+called to do the comparison.
+
+if (num1->compare(num1, num2) == HFCompareEqual) {}
+
+where
+
+HFNumberCompare(const HFNumber* num1, const HFNumber* num2)
+{
+    if (num1->numType(num1) == HFNumTypeFloat)
+    {
+        num1->compareFloat(num1, num2);
+    }
+}
+
+calls (by default)
+
+HFCompareEval HFNumberCompareFloat(const HFNumber* num1, const HFNumber* num2)
+{
+    float comp1 = num1->valFloat(num1);
+    float comp2 = num2->valFloat(num2);
+    HFComparatorEval retval = NFCompareEqual;
+
+    if (comp1 < comp2)
+    {
+        retval = HFCompareLessThan;
+    }
+    else if (comp1 > comp2)
+    {
+        retval = HFCompareGreaterThan;
+    }
+
+    return retval;
+}
+
+Specifically, for floats and doubles, the values may need to be dithered --
+as in +/- some dither value.
+
+The user could replace the comparator function in a number for floats
+(probably in some object factory function)
+
+HFNumber* UserNumberAllocInitAsFloat(float val)
+{
+    HFNumber* number = HFNumberAllocInitAsFloat(val);
+    number->setFloatComparator(UserNumberCompareFloat);
+}
+
+where 'UserNumberCompareFloat' conforms to the substitute "protocol" of
+HFNumber:
+
+HFCompareEval UserNumberCompareFloat(const HFNumber* num1,
+        const HFNumber* num2)
+{
+}
+
