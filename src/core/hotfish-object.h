@@ -8,38 +8,38 @@
  */
 /*-------------------------------------------------------------------------*/
 
-#ifndef HF_OBJECT_H_
-#define HF_OBJECT_H_
+#ifndef COM_LUCKYGREENFROG_HF_OBJECT_H_
+#define COM_LUCKYGREENFROG_HF_OBJECT_H_
 
 /* typedef for the object */
-typedef struct _HfObject HfObject;
+typedef struct _HFObject HFObject;
 
 /* alloc and init functions */
-HfObject*   HfObjectAlloc(void);
-HfObject*   HfObjectAllocInit(hf_type_t isa, hf_id_t id);
-void        HfObjectInit(hf_voptr vself, hf_type_t isa, hf_id_t id);
-void        HfObjectObjFuncsInit(hf_voptr vself);
+HFObject*   HFObject_Alloc(void);
+HFObject*   HFObject_AllocInit(hf_type_t isa, hf_id_t id);
+void        HFObject_Init(hf_voptr vself, hf_type_t isa, hf_id_t id);
+void        HFObject_ObjFuncsInit(hf_voptr vself);
 
 /* type functions */
-hf_type_t   HfObjectIsa(hf_voptr vself);
-void        HfObjectIsaSet(hf_voptr vself, hf_type_t isa);
-hf_id_t     HfObjectId(hf_voptr vself);
-void        HfObjectIdSet(hf_voptr vself, hf_id_t id);
+hf_type_t   HFObject_Isa(hf_voptr vself);
+void        HFObject_IsaSet(hf_voptr vself, hf_type_t isa);
+hf_id_t     HFObject_Id(hf_voptr vself);
+void        HFObject_IdSet(hf_voptr vself, hf_id_t id);
 
 /* member declaration */
 #define HF_OBJECT_MEMBERS_DECLARE \
     void (*Destroy) (hf_voptr vself); \
-    hf_type_t _isa; \
-    hf_id_t _id;
+    hf_type_t       _isa; \
+    hf_id_t         _id;
 
 /* substitutive functions */
-void HfObjectDestroy(hf_voptr vself);
+void HFObjectDestroy(hf_voptr vself);
 
 /* object declaration */
-struct _HfObject
+struct _HFObject
 {
     HF_OBJECT_MEMBERS_DECLARE
 };
 
-#endif  /* HF_OBJECT_H_ */
+#endif  /* COM_LUCKYGREENFROG_HF_OBJECT_H_ */
 
