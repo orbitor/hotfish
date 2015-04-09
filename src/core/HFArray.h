@@ -11,13 +11,26 @@
 #ifndef COM_LUCKYGREENFROG_HF_ARRAY_H_
 #define COM_LUCKYGREENFROG_HF_ARRAY_H_
 
-#include "hotfish-container.h"
+#include "HotFish.h"
+
+HF_DECLS_BEGIN
 
 /* typedef for the object */
-typedef struct _HFArray HFArray;
+typedef const struct __HFArray* HFArrayRef;
+typedef struct __HFArray* HFMutableArrayRef;
 
-/* alloc and init functions */
-HFArray*    HFArray_Alloc(void);
+typedef void (*HFArrayApplierFunction)(const void* value, void* context);
+
+HFArrayRef  HFArrayCreate(HFTypeRef*);
+HFArrayRef  HFArrayCreateCopy(HFArrayRef arrayRef);
+
+HFMutableArrayRef HFArrayCreateMutable();
+HFMutableArrayRef HFArrayCreateMutableCopy(HFArrayRef arrayRef);
+
+void HFArrayApplyFunction(HFArrayRef array, HFApplyFunction func);
+void HFArrayApplyFunctionOverRange(HFArrayRef arrayRef, HFArrayApplierFunction func, HFRange range);
+
+
 HFArray*    HFArray_AllocInit(void);
 HFArray*    HFArray_AllocInitWithArray(HFArray* array);
 HFArray*    HFArray_AllocInitWithObjects(const hf_voptr objects, int count);
@@ -40,6 +53,8 @@ struct _HFArray
 {
     HF_OBJECT_MEMBERS_DECLARE
 };
+
+HF_DECLS_END
 
 #endif  /* COM_LUCKYGREENFROG_HF_ARRAY_H_ */
 

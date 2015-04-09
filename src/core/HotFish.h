@@ -38,6 +38,12 @@ HF_DECLS_BEGIN
 void* hf_malloc(size_t size);
 void hf_free(void* ptr);
 
+typedef struct HFRange
+{
+    uint32_t    location;
+    uint32_t    length;
+};
+
 HF_DECLS_END
 
 #endif  /* HOT_FISH_H_ */
