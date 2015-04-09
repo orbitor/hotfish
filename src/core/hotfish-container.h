@@ -15,24 +15,25 @@
 
 /* typedef for the object */
 typedef struct _HFContainer HFContainer;
+typedef const struct _HFContainer* HFContainerRef;
 
 /* There are no Alloc functions because this object is (sort of) 'virtual' */
 /* Init functions */
-void    HFContainer_Init(void);
-void    HFContainer_InitWithCapacity(size_t capacity);
+void    HFContainerInit(void);
+void    HFContainerInitWithCapacity(size_t capacity);
 
 /* type functions */
-size_t  HFContainer_inflateSize(const HFContainer* container) const;
-bool    HFContainer_mayInflate(const HFContainer* container) const;
-bool    HFContainer_ownsEntries(const HFContainer* container) const;
-size_t  HFContainer_size(const HFContainer* container) const;
-bool    HFContainer_isFull(const HFContainer* container) const;
-bool    HFContainer_isEmpty(const HFContainer* container) const;
+size_t  HFContainerInflateSize(HFContainerRef container) const;
+bool    HFContainerMayInflate(HFContainerRef container) const;
+bool    HFContainerOwnsEntries(HFContainerRef container) const;
+size_t  HFContainerSize(HFContainerRef container) const;
+bool    HFContainerIsFull(HFContainerRef container) const;
+bool    HFContainerIsEmpty(HFContainerRef container) const;
 
-void    HFContainer_setInflateSize(HFContainer* container, size_t size);
-void    HFContainer_setMayInflate(HFContainer* container, bool may_inflate);
-void    HFContainer_setOwnsEntries(HFContainer* container, bool owns_entries);
-void    HFContainer_setSize(HFContainer* container, size_t size);
+void    HFContainerSetInflateSize(HFContainer* container, size_t size);
+void    HFContainerSetMayInflate(HFContainer* container, bool may_inflate);
+void    HFContainerSetOwnsEntries(HFContainer* container, bool owns_entries);
+void    HFContainerSetSize(HFContainer* container, size_t size);
 
 /* member declaration */
 #define HF_CONTAINER_MEMBERS_DECLARE \

@@ -11,20 +11,23 @@
 #ifndef COM_LUCKYGREENFROG_HF_OBJECT_H_
 #define COM_LUCKYGREENFROG_HF_OBJECT_H_
 
+HF_DECLS_BEGIN
+
 /* typedef for the object */
 typedef struct _HFObject HFObject;
+typedef const struct _HFObject* HFObjectRef;
 
 /* alloc and init functions */
-HFObject*   HFObject_Alloc(void);
-HFObject*   HFObject_AllocInit(hf_type_t isa, hf_id_t id);
-void        HFObject_Init(hf_voptr vself, hf_type_t isa, hf_id_t id);
-void        HFObject_ObjFuncsInit(hf_voptr vself);
+HFObject*   HFObjectAlloc(void);
+HFObject*   HFObjectAllocInit(hf_type_t isa, hf_id_t id);
+void        HFObjectInit(hf_voptr vself, hf_type_t isa, hf_id_t id);
+void        HFObjectObjFuncsInit(hf_voptr vself);
 
 /* type functions */
-hf_type_t   HFObject_Isa(hf_voptr vself);
-void        HFObject_IsaSet(hf_voptr vself, hf_type_t isa);
-hf_id_t     HFObject_Id(hf_voptr vself);
-void        HFObject_IdSet(hf_voptr vself, hf_id_t id);
+hf_type_t   HFObjectIsa(hf_voptr vself);
+void        HFObjectSetIsa(hf_voptr vself, hf_type_t isa);
+hf_id_t     HFObjectId(hf_voptr vself);
+void        HFObjectSetId(hf_voptr vself, hf_id_t id);
 
 /* member declaration */
 #define HF_OBJECT_MEMBERS_DECLARE \
@@ -40,6 +43,8 @@ struct _HFObject
 {
     HF_OBJECT_MEMBERS_DECLARE
 };
+
+HF_DECLS_END
 
 #endif  /* COM_LUCKYGREENFROG_HF_OBJECT_H_ */
 
